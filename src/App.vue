@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header mssg="Todo App with Bootstrap 5 and Vue3"/>
+  <TodoApp msg="Welcome to Your Vue.js App"/>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import TodoApp from './components/TodoApp.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Header,
+    TodoApp
+  },
 }
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family:Roboto, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height:100vh;
+  padding-top: 60px;
+  background: #373B44;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 </style>
