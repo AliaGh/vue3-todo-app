@@ -1,18 +1,17 @@
 <template>
   <div class="container-md bg-light text-start rounded box">
   <Title text="Todo List"/>
-  <UserInputItem />
-  <TodoList />
-  <TodoElement />
-  <TodoElement />
+  <UserInputItem @getTodo="addListItem"/>
+  <TodoList :userList="userList" />
+  <TodoElement/>
+  
   <!--<h5> {{ showMydate()}}</h5> -->
-  <!--<h6>{{text}}</h6> -->
   </div>
 
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, reactive, onMounted} from 'vue'
 import moment from 'moment'
 import Title from './Title.vue' 
 import UserInputItem from './UserInputItem.vue' 
@@ -24,9 +23,6 @@ import TodoElement from './TodoElement.vue'
 export default {
   name: 'TodoApp',
   props: {
-    msg: {
-      type:String
-    }
   },
   components: {
    TodoElement,
@@ -35,16 +31,74 @@ export default {
    TodoList
   },
   setup(){
-    const text =ref('alia');
+    
+    const my = ref('');
+    let userList=reactive([]);
+    onMounted(() => {
+      if(localStorage.getItem('userList')){
+        let newUserList =JSON.parse(localStorage.getItem('userList'));
+        newUserList.forEach( (item) =>{
+          userList.push(item)
+        })
+      }
+    })
+    
+    // add list item to the  Arraylist ...come from the userInputItem component
+    //and call the writeLocalStorage to update the arraylist
+    //addListItem(obj) {checked,text,date}
     function showMydate(){
-      return moment().format('MMMM Do') 
+     return moment().format('MMMM Do') 
     }
+    const addListItem= (objItem) => {
+      console.log(objItem.text);
+      userList.push(objItem);
+      console.log(userList);
+      writeLocalStorage(userList);
+    }
+    // remove the item from the array list ...
+    //it should accept the (index) of the list item as an prameter
+    //and call the writeLocalStorage to update the arraylist
+    //removeItem(index)
+    function removeItem(){
 
-    return{
-      showMydate,
-      text,
     }
-  }
+    // sort the arraylist depends on:
+    // 1-due date
+    // 2-alphabetical (ascending)
+    //and call the writeLocalStorage to update the arraylist
+    //sortArrayList(array)
+    function sortArrayList(){
+
+    }
+    // store the arraylist in the localstorage with Json.stringify
+    //writeLocalStorage(array)
+    //localStorage.setItem("userList", JSON.stringify(userList));
+    const writeLocalStorage=(array)=>{
+      localStorage.setItem("userList", JSON.stringify(array));
+    }
+    // get the arraylist from the localstorage  with Json.parse
+    function readLocalStorage(){
+      let List= JSON.parse(localStorage.getItem('userList'));
+      console.log(List);
+      return List
+    } 
+    //update the list item everytime it will be changed
+    //and call the writeLocalStorage to update the arraylist
+    // updateItem(item,index)
+    function updateItem(){ 
+    }
+    return{
+      my,
+      showMydate,
+      addListItem,
+      removeItem,
+      sortArrayList,
+      writeLocalStorage,
+      readLocalStorage,
+      updateItem,
+      userList,
+    }
+  },
   
 }
 </script>
@@ -55,7 +109,7 @@ h1{
 }
 
 .box{
-  height:70vh;
+  height:80vh;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding-top:1rem;
 }

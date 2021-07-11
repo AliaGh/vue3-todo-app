@@ -1,16 +1,19 @@
 <template>
   <div class="container-md text-center mt-4 ">
-  
+  <!-- <input type="checkbox" id="checkbox" v-model="checked" />
+<label for="checkbox">{{ checked }}</label>
+-->
    <div class="input-form hi" @submit.prevent="doSomthing">
-    <input type="checkbox" id="checkbox" name="checkbox" value="">
-    <input class="input-comment" type="text"  placeholder="here right me" ref="">
+    <input type="checkbox" id="checkbox" name="checkbox" >
+    <input class="input-comment" type="text"  placeholder="here is my text" ref="">
 
       <hr>
+      <span></span>
       <i class="fa fa-alarm-plus" title="due date"></i>
       
       <i
         class="fa fa-times delete-icon"
-        @click="addnewTodo($event)"
+        @click="removeItem()"
         aria-hidden="true"
         title="delete"
           ></i>
@@ -22,9 +25,13 @@
 <script>
 export default {
   name: 'TodoElement',
-  props: {
+  props:{
   },
-  setup(){
+  setup(props){
+    console.log(props);
+    return{
+      
+    }
   }
   
 }

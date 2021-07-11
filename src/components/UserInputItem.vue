@@ -1,6 +1,6 @@
 <template>
-<div class="d-flex flex-column flex-sm-wrap">
-  <form @submit.prevent="addNewTodo" class="">
+<div class="d-flex justify-content-between flex-sm-wrap justify-content-betwee">
+  <form @submit.prevent="addNewTodo">
     <!-- input user text field -->
       <label for="todoText">Your Todo: </label>
       <input type="text" v-model="inputText" id="todoText" name="todo-name" placeholder="Please write here">
@@ -9,53 +9,49 @@
       <label for="date">Due Date: </label>
       <input type="date" v-model="inputDate" id="date" name="todo-date" placeholder="Please write here">
      
-      <!-- add button to submitt -->
-        <div class="button_add " align="start" title="Add your Todo Item">
-          <button type="submit" class="bt-border example_d">
+      <!-- add button submitt -->
+          <button type="submit" class="button_add bt-border example_d" >
             <i class="far fa-plus"></i>
           </button>
-        </div>
     </form>
-    <TodoList/>
 </div>
 
 </template>
 
 <script>
-import TodoList from './TodoList.vue'
-import { ref } from 'vue'
+import { ref, reactive} from 'vue'
 export default {
   name: 'UserInputItem',
   props: {
   },
   components:{
-    TodoList
   },
-  setup(){
+  // in compostion API the setup take the props as an argument setup(props,context)
+  //context is object that exposes three component properties{attrs,slots,emit}
+  setup(props,context){
     const inputText=ref('');
     const inputDate=ref(null);
-    const arrayList=ref([]);
+    let itemObj=reactive({});
     function addNewTodo(){
-      arrayList.value.push({
+      if(inputText.value){
+      itemObj ={
         checked:false,
-        text:inputText.value,
+        text:inputText.value.trim(),
         date:inputDate.value
-      });
-      console.log('someone just write'+arrayList.value.length);
-      addToLocalstorage(arrayList.value);
+       }
+      }
+      console.log(`user just write his todo Item ${itemObj.text}`);
+      //send the todo item by emitting an event to 
+      //the parent with custom message 'getTodo'
+      context.emit('getTodo',itemObj);
       inputText.value='';
       inputDate.value=null;
     }
 
-    function addToLocalstorage(userList){
-      localStorage.setItem("userList", JSON.stringify(userList));
-    }
-
     return{
-      inputText,
       addNewTodo,
       inputDate,
-      arrayList,
+      inputText
     }
 
   }
@@ -64,9 +60,7 @@ export default {
 </script>
 
 <style>
-h2{
-    color:#324455
-}
+--bt-add:#ecf0f1;
 .bt-border{
   border:none;
   background:none;
@@ -74,14 +68,14 @@ h2{
 /* A few custom styles for date inputs */
 #todoText, #date {
   cursor:pointer;
-    -webkit-appearance: none;
-    color: #95a5a6;
-    font-size: 18px;
-    border:1px solid #ecf0f1;
-    background:#ecf0f1;
-    padding:5px;
-    display: inline-block !important;
-    visibility: visible !important;
+  -webkit-appearance: none;
+  color: #95a5a6;
+  font-size: 18px;
+  border:1px solid #ecf0f1;
+  background:#ecf0f1;
+  padding:5px;
+  display: inline-block !important;
+  visibility: visible !important;
 }
 
 #date:focus {
@@ -96,7 +90,7 @@ h2{
   height:40px;
 	color: #163c75 !important;
   text-decoration:none;
-	background: #ffffff;
+	background:#fff;
 	padding: 8px;
 	border: 2px solid #163c75 !important;
 	border-radius: 6px;

@@ -1,6 +1,6 @@
 <template>
   <Header mssg="Todo App with Bootstrap 5 and Vue3"/>
-  <TodoApp msg="Welcome to Your Vue.js App"/>
+  <TodoApp />
 </template>
 
 
@@ -14,6 +14,11 @@ export default {
     Header,
     TodoApp
   },
+  setup(){
+    return{
+      
+    }
+  }
 }
 </script>
 
@@ -21,10 +26,10 @@ export default {
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 #app {
-  font-family:Roboto, sans-serif;
+  height:100vh;
+  font-family:'Roboto', sans-serif;
   text-align: center;
   color: #2c3e50;
-  height:100vh;
   padding-top: 60px;
   background: #373B44;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to left, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */

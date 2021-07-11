@@ -10,6 +10,8 @@ export default {
   props: {
     mssg: String
   },
+  setup(){
+  }
   
 }
 </script>
