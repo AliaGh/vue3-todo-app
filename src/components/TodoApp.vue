@@ -2,7 +2,7 @@
   <div class="container-md bg-light text-start rounded box">
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
-  <TodoList :userList="userList"  @remove="removeItem"/>
+  <TodoList :userList="sortArrayList(userList)"  @remove="removeItem"/>
   
   <!--<h5> {{ showMydate()}}</h5> -->
   </div>
@@ -45,11 +45,12 @@ export default {
      return moment().format('MMMM Do') 
     }
     const addListItem= (objItem) => { 
-      if(objItem.text !== " "){
+      if(objItem.text !== ''){
       console.log(objItem.text);
       userList.push(objItem);
       console.log(userList);
-      writeLocalStorage(userList);}
+      writeLocalStorage();
+      }
     }
     // remove the item from the array list ...
     //it should accept the (index) of the list item as an prameter
@@ -64,15 +65,21 @@ export default {
     // 1-due date
     // 2-alphabetical (ascending)
     //and call the writeLocalStorage to update the arraylist
-    //sortArrayList(array)
-    function sortArrayList(){
-
+    //sortArrayList()
+    function sortArrayList(todos){
+      const dueDateTodos = todos.filter(todo => todo.date != null).sort((a,b) => moment(a.date).valueOf() - moment(b.date).valueOf())
+      const otherTodos = todos.filter(todo => todo.date == null).sort((a, b) => {
+        if(a.text < b.text) { return -1; }
+        if(a.text > b.text) { return 1; }
+        return 0;
+      })
+      return dueDateTodos.concat(otherTodos)
     }
     // store the arraylist in the localstorage with Json.stringify
     //writeLocalStorage(array)
     //localStorage.setItem("userList", JSON.stringify(userList));
-    const writeLocalStorage=(array)=>{
-      localStorage.setItem("userList", JSON.stringify(array));
+    const writeLocalStorage=()=>{
+      localStorage.setItem("userList", JSON.stringify(userList));
     }
     // get the arraylist from the localstorage  with Json.parse
     function readLocalStorage(){
