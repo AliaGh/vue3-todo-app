@@ -1,14 +1,15 @@
 <template>
+<li>
   <div class="container-md text-center mt-4 ">
   <!-- <input type="checkbox" id="checkbox" v-model="checked" />
 <label for="checkbox">{{ checked }}</label>
 -->
    <div class="input-form hi" @submit.prevent="doSomthing">
     <input type="checkbox" id="checkbox" name="checkbox" >
-    <input class="input-comment" type="text"  placeholder="here is my text" ref="">
+    <input class="input-comment" type="text"  :placeholder="info.text" ref="">
 
       <hr>
-      <span></span>
+      <span>info.date</span>
       <i class="fa fa-alarm-plus" title="due date"></i>
       
       <i
@@ -19,13 +20,14 @@
           ></i>
       </div>
   </div>
-
+</li>
 </template>
 
 <script>
 export default {
   name: 'TodoElement',
   props:{
+
   },
   setup(props){
     console.log(props);

@@ -3,7 +3,6 @@
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
   <TodoList :userList="userList" />
-  <TodoElement/>
   
   <!--<h5> {{ showMydate()}}</h5> -->
   </div>
@@ -11,12 +10,11 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted} from 'vue'
+import { reactive, onMounted} from 'vue'
 import moment from 'moment'
 import Title from './Title.vue' 
 import UserInputItem from './UserInputItem.vue' 
 import TodoList from './TodoList.vue'
-import TodoElement from './TodoElement.vue'
 
 
 
@@ -25,14 +23,11 @@ export default {
   props: {
   },
   components: {
-   TodoElement,
    UserInputItem,
    Title,
    TodoList
   },
   setup(){
-    
-    const my = ref('');
     let userList=reactive([]);
     onMounted(() => {
       if(localStorage.getItem('userList')){
@@ -49,11 +44,12 @@ export default {
     function showMydate(){
      return moment().format('MMMM Do') 
     }
-    const addListItem= (objItem) => {
+    const addListItem= (objItem) => { 
+      if(objItem.text !== " "){
       console.log(objItem.text);
       userList.push(objItem);
       console.log(userList);
-      writeLocalStorage(userList);
+      writeLocalStorage(userList);}
     }
     // remove the item from the array list ...
     //it should accept the (index) of the list item as an prameter
@@ -88,7 +84,6 @@ export default {
     function updateItem(){ 
     }
     return{
-      my,
       showMydate,
       addListItem,
       removeItem,

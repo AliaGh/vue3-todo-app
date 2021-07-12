@@ -1,5 +1,6 @@
 <template>
-<div class="d-flex justify-content-between flex-sm-wrap justify-content-betwee">
+<div class="container">
+<div class="d-flex justify-content-around flex-sm-wrap">
   <form @submit.prevent="addNewTodo">
     <!-- input user text field -->
       <label for="todoText">Your Todo: </label>
@@ -15,7 +16,7 @@
           </button>
     </form>
 </div>
-
+</div>
 </template>
 
 <script>
@@ -77,6 +78,10 @@ export default {
   display: inline-block !important;
   visibility: visible !important;
 }
+#todoText{
+  color:black;
+}
+
 
 #date:focus {
     color: #95a5a6;
