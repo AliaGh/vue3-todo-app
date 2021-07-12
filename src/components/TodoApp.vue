@@ -2,7 +2,7 @@
   <div class="container-md bg-light text-start rounded box">
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
-  <TodoList :userList="userList" />
+  <TodoList :userList="userList"  @remove="removeItem"/>
   
   <!--<h5> {{ showMydate()}}</h5> -->
   </div>
@@ -55,7 +55,9 @@ export default {
     //it should accept the (index) of the list item as an prameter
     //and call the writeLocalStorage to update the arraylist
     //removeItem(index)
-    function removeItem(){
+    function removeItem(index){
+      userList.splice(index,1);
+       writeLocalStorage(userList)
 
     }
     // sort the arraylist depends on:
