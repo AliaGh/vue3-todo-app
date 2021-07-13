@@ -4,20 +4,20 @@
    <!-- faild to resolve component TodoElement-->
       <!-- <TodoElement v-for="(item,index) in userList" :key="index"-->
 
-    <li v-for="(item,index) in userList" :key="index"  >
+    <li v-for="item in userList" :key="item.id"  >
       <div class="container-md text-center mt-4">
       <!-- <input type="checkbox" id="checkbox" v-model="checked" />
         <label for="checkbox">{{ checked }}</label>-->
-      <div class="input-form item-style" @submit.prevent="doSomthing">
+      <div class="input-form item-style">
         <input type="checkbox" id="checkbox" name="checkbox" >
-        <input class="input-comment" type="text"  :placeholder="item.text" >
+        <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" >
 
         <hr>
         <span>{{item.date}}</span>
         <i class="fa fa-alarm-plus" title="due date"></i>
         <i
           class="fa fa-times delete-icon"
-          @click="$emit('remove')"
+          @click="remove(item)"
           aria-hidden="true"
           title="delete"></i>
         </div>
@@ -42,10 +42,16 @@ export default {
     components:{
     }
   },
-  setup(props){
+  setup(props,context){
     console.log(props.userList);
+    function remove(item){
+      console.log(item);
+      context.emit("remove",item);
+    }
   return{
     // array
+
+    remove
   }
   }
   
@@ -79,6 +85,9 @@ ul li{
   background: transparent;
   color: black;
   padding-right: 50px;
+}
+.input-comment::first-letter{
+   text-transform: uppercase;
 }
 .input-comment::placeholder{
   color:#324455;

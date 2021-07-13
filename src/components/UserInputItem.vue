@@ -20,6 +20,8 @@
 </template>
 
 <script>
+//  ref object Takes an inner value and returns a reactive and mutable ref object.
+
 import { ref, reactive} from 'vue'
 export default {
   name: 'UserInputItem',
@@ -34,13 +36,13 @@ export default {
     const inputDate=ref(null);
     let itemObj=reactive({});
     function addNewTodo(){
-      if(inputText.value){
       itemObj ={
+        id:Date.now(),
         checked:false,
         text:inputText.value.trim(),
         date:inputDate.value
        }
-      }
+      
       console.log(`user just write his todo Item ${itemObj.text}`);
       //send the todo item by emitting an event to 
       //the parent with custom message 'getTodo'

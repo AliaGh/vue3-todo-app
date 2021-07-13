@@ -4,7 +4,7 @@
   <UserInputItem @getTodo="addListItem"/>
   <TodoList :userList="sortArrayList(userList)"  @remove="removeItem"/>
   
-  <!--<h5> {{ showMydate()}}</h5> -->
+  <!--<h5> {{ showMydate()}}</h5> @remove="removeItem"-->
   </div>
 
 </template>
@@ -50,16 +50,21 @@ export default {
       userList.push(objItem);
       console.log(userList);
       writeLocalStorage();
+
       }
     }
     // remove the item from the array list ...
     //it should accept the (index) of the list item as an prameter
     //and call the writeLocalStorage to update the arraylist
     //removeItem(index)
-    function removeItem(index){
+    function removeItem(item){
+      console.log("her is my item");
+      console.log(item);
+      let index =userList.findIndex((obj) =>{ return obj.id == item.id});
       userList.splice(index,1);
-       writeLocalStorage(userList)
-
+      console.log(userList)
+      // sortArrayList(userList);
+      writeLocalStorage();
     }
     // sort the arraylist depends on:
     // 1-due date
@@ -81,7 +86,7 @@ export default {
     const writeLocalStorage=()=>{
       localStorage.setItem("userList", JSON.stringify(userList));
     }
-    // get the arraylist from the localstorage  with Json.parse
+    // get the arraylist from the localstorage  with JSON.parse
     function readLocalStorage(){
       let List= JSON.parse(localStorage.getItem('userList'));
       console.log(List);
@@ -111,9 +116,8 @@ export default {
 h1{
     color:red;
 }
-
 .box{
-  height:80vh;
+  height:100%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding-top:1rem;
 }
