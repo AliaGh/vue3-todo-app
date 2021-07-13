@@ -9,8 +9,8 @@
       <!-- <input type="checkbox" id="checkbox" v-model="checked" />
         <label for="checkbox">{{ checked }}</label>-->
       <div class="input-form item-style">
-        <input type="checkbox" id="checkbox" name="checkbox" >
-        <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" >
+        <input type="checkbox" id="checkbox" name="checkbox" @click="iscompleted(item)" >
+        <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" :class="{'done':item.checked}">
 
         <hr>
         <span>{{item.date}}</span>
@@ -48,10 +48,15 @@ export default {
       console.log(item);
       context.emit("remove",item);
     }
+
+    function iscompleted(item){
+      item.checked = !item.checked;
+      console.log(item.checked);
+    }
   return{
     // array
-
-    remove
+    remove,
+    iscompleted
   }
   }
   
@@ -59,6 +64,9 @@ export default {
 </script>
 
 <style>
+.done{
+    text-decoration: line-through;
+}
 
 h2{
     color:#324455
