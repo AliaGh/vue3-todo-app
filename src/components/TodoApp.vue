@@ -2,8 +2,14 @@
   <div class="container-md bg-light text-start rounded box">
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
-  <TodoList :userList="sortArrayList(userList)"  @remove="removeItem" @update="updateItem"/>
-  
+
+   <div class="container-md text-start">
+   <ul>
+   <!-- faild to resolve component TodoElement-->
+      <!-- <TodoElement v-for="(item,index) in userList" :key="index"-->
+     <TodoElement v-for="item in sortArrayList(userList)" :item="item" :key="item.id"  @remove="removeItem" @update="updateItem"></TodoElement>
+    </ul>
+  </div>
   <!--<h5> {{ showMydate()}}</h5> @remove="removeItem"-->
   </div>
 
@@ -14,7 +20,7 @@ import { reactive, onMounted} from 'vue'
 import moment from 'moment'
 import Title from './Title.vue' 
 import UserInputItem from './UserInputItem.vue' 
-import TodoList from './TodoList.vue'
+
 
 
 
@@ -25,7 +31,6 @@ export default {
   components: {
    UserInputItem,
    Title,
-   TodoList
   },
   setup(){
     let userList=reactive([]);
@@ -115,6 +120,26 @@ export default {
 </script>
 
 <style>
+
+$header-color:#ffffff;
+$main-color:#324455;
+$text-color:#e0e1e3;
+$bg-color:#1f2937;
+$bt-bg:#f0bc79;
+--bt-text-color:#1f2937;
+--toast-color:#67c5f2;
+
+
+h2{
+    color:var(--main-color)
+}
+ul{
+  margin-left:0;
+}
+ul li{
+  list-style:none;
+}
+
 
 h1{
     color:red;
