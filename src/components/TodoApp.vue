@@ -2,7 +2,7 @@
   <div class="container-md bg-light text-start rounded box">
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
-  <TodoList :userList="sortArrayList(userList)"  @remove="removeItem"/>
+  <TodoList :userList="sortArrayList(userList)"  @remove="removeItem" @update="updateItem"/>
   
   <!--<h5> {{ showMydate()}}</h5> @remove="removeItem"-->
   </div>
@@ -95,7 +95,9 @@ export default {
     //update the list item everytime it will be changed
     //and call the writeLocalStorage to update the arraylist
     // updateItem(item,index)
-    function updateItem(){ 
+    function updateItem(updatedObj){
+      removeItem(updatedObj);
+      addListItem(updatedObj); 
     }
     return{
       showMydate,
@@ -113,12 +115,12 @@ export default {
 </script>
 
 <style>
+
 h1{
     color:red;
 }
 .box{
   height:100%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding-top:1rem;
-}
+box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;}
 </style>

@@ -5,15 +5,14 @@
     <!-- input user text field -->
       <label for="todoText">Your Todo: </label>
       <input type="text" v-model="inputText" id="todoText" name="todo-name" placeholder="Please write here">
-      
     <!-- input user date field -->
-      <label for="date">Due Date: </label>
+      <label for="date">Due Date:(optional) </label>
       <input type="date" v-model="inputDate" id="date" name="todo-date" placeholder="Please write here">
      
       <!-- add button submitt -->
-          <button type="submit" class="button_add bt-border example_d" >
-            <i class="far fa-plus"></i>
-          </button>
+      <button type="submit" class="button_add bt-border example_d" >
+        <i class="far fa-plus"></i>
+      </button>
     </form>
 </div>
 </div>

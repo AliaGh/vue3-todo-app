@@ -10,14 +10,15 @@ export default {
   props: {
     mssg: String
   },
-  setup(){
-  }
+  
   
 }
 </script>
 
 <style>
 .change{
-  color:#fefcf8;
+  color:#fff;
+  font-weight:900 !Important;
+  font-size:2.5rem;
 }
 </style>

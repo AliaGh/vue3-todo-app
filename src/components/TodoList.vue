@@ -9,12 +9,16 @@
       <!-- <input type="checkbox" id="checkbox" v-model="checked" />
         <label for="checkbox">{{ checked }}</label>-->
       <div class="input-form item-style">
-        <input type="checkbox" id="checkbox" name="checkbox" @click="iscompleted(item)" >
-        <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" :class="{'done':item.checked}">
+        <input type="checkbox"  id="checkbox" :checked="item.checked" name="checkbox" @change="iscompleted(item)" >
+        <!-- <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" :class="{'done':item.checked}" > -->
+        <input class="input-comment" type="text"  :placeholder="item.text" :class="{'done':item.checked}" @change="updateTodo(item, $event.target.value)" >
 
-        <hr>
-        <span>{{item.date}}</span>
-        <i class="fa fa-alarm-plus" title="due date"></i>
+        <!-- Date input -->
+        <span>{{ item.date }}</span>
+        <span class="datepicker-toggle">
+        <span class="datepicker-toggle-button"></span>
+          <input type="date" class="datepicker-input" v-if="item.date"  @input="updateDate(item, $event.target.value)" id="date" name="todo-date">
+        </span>
         <i
           class="fa fa-times delete-icon"
           @click="remove(item)"
@@ -24,15 +28,12 @@
        </div>
       </li>
     </ul>
-    
-    
   </div>
 
 </template>
 
 <script>
-
-// import {  reactive } from 'vue'
+// import { ref } from 'vue'
 export default {
   name: 'TodoList',
   props:{
@@ -52,11 +53,27 @@ export default {
     function iscompleted(item){
       item.checked = !item.checked;
       console.log(item.checked);
+      context.emit("update", item)
     }
+
+    function updateDate(item, newDate){
+      item.date = newDate;
+      console.log(item.date);
+      context.emit("update", item)
+    }
+    
+    function updateTodo(item, text){
+      item.text = text;
+      console.log(item.text);
+      context.emit("update", item)
+    }
+    
   return{
     // array
     remove,
-    iscompleted
+    iscompleted,
+    updateDate,
+    updateTodo
   }
   }
   
@@ -64,12 +81,20 @@ export default {
 </script>
 
 <style>
-.done{
-    text-decoration: line-through;
-}
+$header-color:#ffffff;
+$main-color:#324455;
+$text-color:#e0e1e3;
+$bg-color:#1f2937;
+$bt-bg:#f0bc79;
+--bt-text-color:#1f2937;
+--toast-color:#67c5f2;
+
 
 h2{
-    color:#324455
+    color:var(--main-color)
+}
+.done{
+  text-decoration:line-through;
 }
 ul{
   margin-left:0;
@@ -87,7 +112,7 @@ ul li{
 }
 .input-comment{
   position:relative;
-  flex-grow:3;
+  flex-grow:2;
   border: none;
   outline:none;
   background: transparent;
@@ -107,28 +132,20 @@ form input:focus {
   box-shadow: none;
   background:transparent;
   border:none;
-  
 }
-.fa.delete-icon {
+.fa.delete-icon, .fa.fa-alarm-plus{
   font-size: 25px;
   cursor: pointer;
-  color:blue; 
+  color: #f0bc79;
   opacity:1;
-}
-.fa.delete-icon:hover{
- opacity:0.3;
 }
 
  .fa.fa-alarm-plus{
-   color:blue;
    margin:0 20px ;
-  font-size: 25px;
-  cursor: pointer;
-  opacity:1;
-
- }
- .fa.fa-alarm-plus:hover{
- opacity:0.3;
+}
+ .fa.fa-alarm-plus:hover, .fa.delete-icon:hover{
+ opacity:0.8;
+ font-size: 28px;
 }
 input[type="checkbox"]{
   margin-top:5px;
@@ -136,8 +153,43 @@ input[type="checkbox"]{
   height:25px;
   width:25px;
  }
- text-checked{
+ .text-checked{
    text-decoration: line-through;
  }
+
+.datepicker-toggle {
+  display: inline-block;
+  position: relative;
+  width: 18px;
+  height: 19px;
+}
+.datepicker-toggle-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/logo.png');
+}
+.datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
 
 </style>

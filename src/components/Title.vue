@@ -1,8 +1,8 @@
  <template>
-  <div class="container-md text-start">
+  <div class="container-md text-start ">
     <div class="row">
-        <div class="col-11">
-            <h2>{{ text }}</h2>
+        <div class="col-11 ">
+            <h2 class="title">{{ text }}</h2>
         </div>
         <div class="col-1 text-end ">
             <div class="button_update" align="center" title="Refesh your List">
@@ -21,7 +21,7 @@
 <script>
 export default {
   name: 'Title',
-  props: {
+  props:{
       text:String
   },
   
@@ -29,8 +29,11 @@ export default {
 </script>
 
 <style>
-
-h2{
-    color:#324455
+--main-color:#1f2937;
+h2.title{
+  color:var(--main-color);
+  font-weight:900 !important;
+  font-size:6rem;
 }
+
 </style>
