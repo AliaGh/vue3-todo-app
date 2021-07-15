@@ -1,5 +1,6 @@
 <template>
   <div class="container-md bg-light text-start rounded box">
+  <Toast />
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
 
@@ -18,6 +19,7 @@
 <script>
 import { reactive, onMounted} from 'vue'
 import moment from 'moment'
+import Toast from './Toast.vue'
 import Title from './Title.vue' 
 import UserInputItem from './UserInputItem.vue' 
 
@@ -31,6 +33,7 @@ export default {
   components: {
    UserInputItem,
    Title,
+   Toast
   },
   setup(){
     let userList=reactive([]);
@@ -146,6 +149,8 @@ h1{
 }
 .box{
   height:100%;
-  padding-top:1rem;
-box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;}
+  width:14rem;
+  padding:2rem;
+box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
 </style>
