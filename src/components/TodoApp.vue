@@ -1,19 +1,13 @@
 <template>
   <div class="container-md bg-light text-start rounded box">
-  <Toast />
   <Title text="Todo List"/>
   <UserInputItem @getTodo="addListItem"/>
-
-   <div class="container-md text-start">
-   <ul>
-   <!-- faild to resolve component TodoElement-->
-      <!-- <TodoElement v-for="(item,index) in userList" :key="index"-->
-     <TodoElement v-for="item in sortArrayList(userList)" :item="item" :key="item.id"  @remove="removeItem" @update="updateItem"></TodoElement>
-    </ul>
+    <div class="container-md text-start">
+      <ul>
+      <TodoElement v-for="item in sortArrayList(userList)" :item="item" :key="item.id"  @remove="removeItem" @update="updateItem"></TodoElement>
+      </ul>
+    </div>
   </div>
-  <!--<h5> {{ showMydate()}}</h5> @remove="removeItem"-->
-  </div>
-
 </template>
 
 <script>
@@ -39,20 +33,17 @@ export default {
     let userList=reactive([]);
     onMounted(() => {
       if(localStorage.getItem('userList')){
-        let newUserList =JSON.parse(localStorage.getItem('userList'));
+        let newUserList = JSON.parse(localStorage.getItem('userList'));
         newUserList.forEach( (item) =>{
           userList.push(item)
         })
       }
-        createToast('Wow, easy');
+        showToastNotification();
     })
     
     // add list item to the  Arraylist ...come from the userInputItem component
     //and call the writeLocalStorage to update the arraylist
     //addListItem(obj) {checked,text,date}
-    function showMydate(){
-     return moment().format('MMMM Do') 
-    }
     const addListItem= (objItem) => { 
       if(objItem.text !== ''){
       console.log(objItem.text);
@@ -66,7 +57,7 @@ export default {
     //it should accept the (index) of the list item as an prameter
     //and call the writeLocalStorage to update the arraylist
     //removeItem(index)
-    function removeItem(item){
+    const removeItem =(item) =>{
       console.log("her is my item");
       console.log(item);
       let index =userList.findIndex((obj) =>{ return obj.id == item.id});
@@ -80,7 +71,7 @@ export default {
     // 2-alphabetical (ascending)
     //and call the writeLocalStorage to update the arraylist
     //sortArrayList()
-    function sortArrayList(todos){
+    const sortArrayList = (todos) =>{
       const dueDateTodos = todos.filter(todo => todo.date != null).sort((a,b) => moment(a.date).valueOf() - moment(b.date).valueOf())
       const otherTodos = todos.filter(todo => todo.date == null).sort((a, b) => {
         if(a.text < b.text) { return -1; }
@@ -96,7 +87,7 @@ export default {
       localStorage.setItem("userList", JSON.stringify(userList));
     }
     // get the arraylist from the localstorage  with JSON.parse
-    function readLocalStorage(){
+    const readLocalStorage=() => {
       let List= JSON.parse(localStorage.getItem('userList'));
       console.log(List);
       return List
@@ -104,12 +95,28 @@ export default {
     //update the list item everytime it will be changed
     //and call the writeLocalStorage to update the arraylist
     // updateItem(item,index)
-    function updateItem(updatedObj){
+    const updateItem = (updatedObj) =>{
       removeItem(updatedObj);
       addListItem(updatedObj); 
     }
+    const showToastNotification= () =>{
+      let countover=0;
+        let ongoing=0;
+        userList.filter(item=>{return ((item.date !== null) & (!item.checked))}).forEach(item =>{
+          if((moment(item.date)< moment()))
+            countover+=1;
+          else 
+            ongoing+=1;
+        });
+      
+        createToast(`you have  ${countover} expired todos  and ${ongoing} will end soon `,{
+            position: 'bottom-center',
+            showIcon: true,
+            type: 'info',
+            timeout: 6000
+            });
+    }
     return{
-      showMydate,
       addListItem,
       removeItem,
       sortArrayList,
