@@ -1,19 +1,18 @@
 <template>
-  <div class="container-md bg-light text-start rounded box">
-  <Title text="Todo List"/>
-  <UserInputItem @getTodo="addListItem"/>
-    <div class="container-md text-start">
+  <div class="container bg-light round mb-3 pb-2 ">
+  <h2>My Todo</h2>
+    <UserInputItem @getTodo="addListItem"/>
+  </div>
+  <div v-if="userList.length" class="container-md bg-light text-start box round">
       <ul>
       <TodoElement v-for="item in sortArrayList(userList)" :item="item" :key="item.id"  @remove="removeItem" @update="updateItem"></TodoElement>
       </ul>
-    </div>
   </div>
 </template>
 
 <script>
 import { reactive, onMounted} from 'vue'
-import moment from 'moment'
-import Title from './Title.vue' 
+import moment from 'moment' 
 import UserInputItem from './UserInputItem.vue' 
 import { createToast } from 'mosha-vue-toastify'
 import 'mosha-vue-toastify/dist/style.css'
@@ -27,7 +26,6 @@ export default {
   },
   components: {
    UserInputItem,
-   Title,
   },
   setup(){
     let userList=reactive([]);
@@ -102,7 +100,7 @@ export default {
     const showToastNotification= () =>{
       let countover=0;
         let ongoing=0;
-        userList.filter(item=>{return ((item.date !== null) & (!item.checked))}).forEach(item =>{
+        userList.filter(item=>{return ((item.date !== null) && (!item.checked))}).forEach(item =>{
           if((moment(item.date)< moment()))
             countover+=1;
           else 
@@ -151,6 +149,9 @@ ul li{
   list-style:none;
 }
 
+.round{
+  border-radius:10px;
+}
 
 h1{
     color:red;

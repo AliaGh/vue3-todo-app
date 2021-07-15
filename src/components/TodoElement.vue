@@ -126,12 +126,12 @@ form input:focus {
   font-size: 25px;
   cursor: pointer;
   color:#dc143c ;
-  opacity:0.3;
+  opacity:0.7;
 margin-left:10px;
 }
 
  .fa.fa-alarm-plus:hover, .fa.delete-icon:hover{
- opacity:1;
+ opacity:0.4;
  font-size: 28px;
 }
 input[type="checkbox"]{

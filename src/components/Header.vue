@@ -1,5 +1,5 @@
 <template>
-  <div class="container-md text-center">
+  <div class="container-md mb-3 text-center">
   <h1 class="change">{{mssg}} </h1></div>
 
 </template>

@@ -1,20 +1,26 @@
 <template>
 <div class="container">
-<div class="d-flex justify-content-around flex-sm-wrap">
   <form @submit.prevent="addNewTodo">
+  <div class="container">
+  <div class="row">
+  
     <!-- input user text field -->
-      <label for="todoText">Your Todo: </label>
-      <input type="text" v-model="inputText" id="todoText" name="todo-name" placeholder="Please write here">
-    <!-- input user date field -->
-      <label for="date">Due Date:(optional) </label>
-      <input type="date" v-model="inputDate" id="date" name="todo-date" placeholder="Please write here">
-     
-      <!-- add button submitt -->
-      <button type="submit" class="button_add bt-border example_d" >
+    <div class="col-5 text-start">
+    <button type="submit" class="button_add bt-border example_d " >
         <i class="far fa-plus"></i>
       </button>
+      <input type="text" v-model="inputText" class="ml-2"  id="todoText" name="todo-name" placeholder="Add Todo"></div>
+    <!-- input user date field -->
+    <div class="col-5 ">
+      <label for="date">Due Date:(optional) </label>
+      <input type="date" v-model="inputDate" id="date" name="todo-date" placeholder="Please write here"></div>
+     
+      <!-- add button submitt -->
+      
+      </div>
+      </div>
     </form>
-</div>
+
 </div>
 </template>
 
@@ -67,6 +73,10 @@ export default {
   border:none;
   background:none;
 }
+
+.todo-input{
+  border:1px solid black;
+}
 /* A few custom styles for date inputs */
 #todoText, #date {
   cursor:pointer;
@@ -74,13 +84,15 @@ export default {
   color: #95a5a6;
   font-size: 18px;
   border:1px solid #ecf0f1;
-  background:#ecf0f1;
+  background:transparent;
   padding:5px;
   display: inline-block !important;
   visibility: visible !important;
+  outline:none;
 }
 #todoText{
   color:black;
+  margin-left:5px;
 }
 
 
