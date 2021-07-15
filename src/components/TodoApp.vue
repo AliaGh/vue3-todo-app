@@ -19,9 +19,10 @@
 <script>
 import { reactive, onMounted} from 'vue'
 import moment from 'moment'
-import Toast from './Toast.vue'
 import Title from './Title.vue' 
 import UserInputItem from './UserInputItem.vue' 
+import { createToast } from 'mosha-vue-toastify'
+import 'mosha-vue-toastify/dist/style.css'
 
 
 
@@ -33,7 +34,6 @@ export default {
   components: {
    UserInputItem,
    Title,
-   Toast
   },
   setup(){
     let userList=reactive([]);
@@ -44,6 +44,7 @@ export default {
           userList.push(item)
         })
       }
+        createToast('Wow, easy');
     })
     
     // add list item to the  Arraylist ...come from the userInputItem component
