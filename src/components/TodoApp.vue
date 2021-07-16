@@ -1,6 +1,6 @@
 <template>
-  <div class="container bg-light round mb-3 pb-2 ">
-  <h2>My Todo</h2>
+  <div class="container bg-light round  mb-3 p-2 ">
+  <h3 class="mt-2">My Todo</h3>
     <UserInputItem @getTodo="addListItem"/>
   </div>
   <div v-if="userList.length" class="container-md bg-light text-start box round">
@@ -16,8 +16,6 @@ import moment from 'moment'
 import UserInputItem from './UserInputItem.vue' 
 import { createToast } from 'mosha-vue-toastify'
 import 'mosha-vue-toastify/dist/style.css'
-
-
 
 
 export default {
@@ -130,27 +128,17 @@ export default {
 
 <style>
 
-$header-color:#ffffff;
-$main-color:#324455;
-$text-color:#e0e1e3;
-$bg-color:#1f2937;
-$bt-bg:#f0bc79;
---bt-text-color:#1f2937;
---toast-color:#67c5f2;
-
-
-h2{
-    color:var(--main-color)
-}
-ul{
-  margin-left:0;
-}
 ul li{
   list-style:none;
 }
 
 .round{
   border-radius:10px;
+  padding:0 2rem;
+background: #FFEFBA;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 h1{

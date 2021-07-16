@@ -1,5 +1,5 @@
 <template>
-  <Header mssg="Todo App with Bootstrap 5 and Vue3"/>
+  <Header mssg="Todo App with Vue3"/>
   <TodoApp />
 </template>
 
