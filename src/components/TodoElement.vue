@@ -1,26 +1,25 @@
 <template>
 <li>
- <div class="container-md text-center mt-1 pt-2">
-      <!-- <input type="checkbox" id="checkbox" v-model="checked" />
-        <label for="checkbox">{{ checked }}</label>-->
+ <div class="container-md text-center mt-1 pt-2 fix">
       <div class="input-form item-style">
-        <input type="checkbox"  id="checkbox" :checked="item.checked" name="checkbox" @change="iscompleted(item)" >
-        <!-- <input class="input-comment" type="text"  :placeholder="item.text.charAt(0).toUpperCase()+item.text.slice(1)" :class="{'done':item.checked}" > -->
-        <input class="input-comment" type="text"  :placeholder="todotextFormat(item)" :class="{'done':item.checked}" @change="updateTodo(item, $event.target.value)" >
+       <!-- --> 
+          <input type="checkbox"  id="checkbox" :checked="item.checked" name="checkbox" @change="iscompleted(item)" >
+          <input class="input-comment" type="text"  :placeholder="todotextFormat(item)" :class="{'done':item.checked}" @change="updateTodoText(item, $event.target.value)" >
 
         <!-- Date input -->
-        <span>{{ item.date }}</span>
-        <span class="datepicker-toggle">
-        <span class="datepicker-toggle-button"></span>
+          <span>{{ item.date }}</span>
+          <span class="datepicker-toggle">
+          <span class="datepicker-toggle-button"></span>
           <input type="date" class="datepicker-input" @input="updateDate(item, $event.target.value)" id="date" name="todo-date">
-        </span>
-        <i
-          class="fa fa-times delete-icon"
-          @click="remove(item)"
-          aria-hidden="true"
-          title="delete"></i>
+          </span>
+          <!--  delete button-->
+          <i
+            class="fa fa-times delete-icon"
+            @click="remove(item)"
+            aria-hidden="true"
+            title="delete"></i>
         </div>
-       </div>
+      </div>
 </li>
 </template>
 
@@ -34,27 +33,27 @@ export default {
   },
   setup(props,context){
     console.log(props)
-    function todotextFormat(item){
+    const todotextFormat = (item) => {
       return item.text.charAt(0).toUpperCase()+item.text.slice(1)
     }
-    function remove(item){
+    const remove = (item) => {
       console.log(item);
       context.emit("remove",item);
     }
 
-    function iscompleted(item){
+    const iscompleted = (item) => {
       item.checked = !item.checked;
       console.log(item.checked);
       context.emit("update", item)
     }
 
-    function updateDate(item, newDate){
+    const updateDate = (item, newDate) => {
       item.date = newDate;
       console.log(item.date);
       context.emit("update", item)
     }
     
-    function updateTodo(item, text){
+    const updateTodoText = (item, text) => {
       item.text = text;
       console.log(item.text);
       context.emit("update", item)
@@ -67,7 +66,7 @@ export default {
     remove,
     iscompleted,
     updateDate,
-    updateTodo
+    updateTodoText
      }
    } 
 }
@@ -80,8 +79,7 @@ h2{
 .done{
   text-decoration:line-through;
 }
-ul{
-}
+
 ul li{
   list-style:none;
   height:45px;
@@ -89,7 +87,9 @@ ul li{
 li:hover{
 box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
-{
+
+.fix{
+  padding:0 3rem;
   }
 .item-style {
 
@@ -104,7 +104,7 @@ box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 3
   border: none;
   outline:none;
   background: transparent;
-  color: black;
+  color:#324455;
  
 
 }
@@ -130,7 +130,7 @@ form input:focus {
 margin-left:10px;
 }
 
- .fa.fa-alarm-plus:hover, .fa.delete-icon:hover{
+.fa.delete-icon:hover{
  opacity:0.4;
  font-size: 28px;
 }

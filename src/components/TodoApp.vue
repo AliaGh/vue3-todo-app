@@ -1,10 +1,14 @@
 <template>
   <div class="container bg-light round  mb-3 p-2 ">
-  <h3 class="mt-2">My Todo</h3>
+    <!-- Title-->
+    <h3 class="mt-2 mb-3 text-start mx-4">My Todo</h3>
+    <!-- user component icludes the user input and the date -->
     <UserInputItem @getTodo="addListItem"/>
   </div>
+    <!-- render the todo list -->
   <div v-if="userList.length" class="container-md bg-light text-start box round">
       <ul>
+      <!-- show user list item -->
       <TodoElement v-for="item in sortArrayList(userList)" :item="item" :key="item.id"  @remove="removeItem" @update="updateItem"></TodoElement>
       </ul>
   </div>
@@ -46,20 +50,14 @@ export default {
       userList.push(objItem);
       console.log(userList);
       writeLocalStorage();
-
       }
     }
     // remove the item from the array list ...
     //it should accept the (index) of the list item as an prameter
     //and call the writeLocalStorage to update the arraylist
-    //removeItem(index)
     const removeItem =(item) =>{
-      console.log("her is my item");
-      console.log(item);
       let index =userList.findIndex((obj) =>{ return obj.id == item.id});
       userList.splice(index,1);
-      console.log(userList)
-      // sortArrayList(userList);
       writeLocalStorage();
     }
     // sort the arraylist depends on:
@@ -69,11 +67,7 @@ export default {
     //sortArrayList()
     const sortArrayList = (todos) =>{
       const dueDateTodos = todos.filter(todo => todo.date != null).sort((a,b) => moment(a.date).valueOf() - moment(b.date).valueOf())
-      const otherTodos = todos.filter(todo => todo.date == null).sort((a, b) => {
-        if(a.text < b.text) { return -1; }
-        if(a.text > b.text) { return 1; }
-        return 0;
-      })
+      const otherTodos = todos.filter(todo => todo.date == null).sort()
       return dueDateTodos.concat(otherTodos)
     }
     // store the arraylist in the localstorage with Json.stringify
@@ -85,7 +79,6 @@ export default {
     // get the arraylist from the localstorage  with JSON.parse
     const readLocalStorage=() => {
       let List= JSON.parse(localStorage.getItem('userList'));
-      console.log(List);
       return List
     } 
     //update the list item everytime it will be changed

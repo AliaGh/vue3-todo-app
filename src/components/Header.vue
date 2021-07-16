@@ -9,9 +9,7 @@ export default {
   name: 'Header',
   props: {
     mssg: String
-  },
-  
-  
+  } 
 }
 </script>
 
@@ -19,6 +17,6 @@ export default {
 .change{
   color:#fff;
   font-weight:900 !Important;
-  font-size:2.5rem;
+  font-size:2rem;
 }
 </style>
